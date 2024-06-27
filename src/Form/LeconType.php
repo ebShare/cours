@@ -6,15 +6,20 @@ use App\Entity\Lecon;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 
 class LeconType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre')
-            ->add('code')
-            ->add('heures')
+            ->add('titre',TextType::class)
+            ->add('code', IntegerType::class)
+            ->add('heures',IntegerType::class)
+            ->add("submit", SubmitType::class)
         ;
     }
 

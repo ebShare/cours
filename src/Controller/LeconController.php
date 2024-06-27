@@ -47,4 +47,27 @@ class LeconController extends AbstractController
 
         return $this->render('pages/lecon/new.html.twig', ['form' => $form,]);
     }
+    #[Route('/lecon/edit/{id}', 'lecon_edit', methods: ['GET', 'POST'])]
+    public function edit(
+        Request $request,
+        EntityManagerInterface $manager,
+        Lecon $lecon
+    ): Response {
+        $form = $this->createForm(LeconType::class, $lecon);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ingredient = $form->getData();
+
+            //$manager-> persist($ingredient);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                'Vos changements ont été enregistrés'
+            );
+
+            return $this->redirectToRoute('app_lecon');
+        }
+        return $this->render('pages/lecon/edit.html.twig', ['form' => $form,]);
+    }
 }
